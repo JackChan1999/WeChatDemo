@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tv_01"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="高兴[高兴] 富文本显示" />
+
+    <TextView
+        android:id="@+id/tv_02"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="vertical"
+        android:text="高兴[高兴] 再见 [再见] 大兵 [大兵] xxx [xxx]" />
+
+    <TextView
+        android:id="@+id/tv_03"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="vertical"
+        android:autoLink="email|web|phone|map"
+        android:text=" 电话 13609000000 电话 13000000000 邮箱 hi@qq.com  邮箱 xxx@163.com 网址 http://www.google.com " />
+
+    <TextView
+        android:id="@+id/tv_04"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="vertical"
+        android:text="我装作看不懂的样子话题 #编程# #黑马程序员# 用户 @冷笑话01 @冷笑话精选 邮箱 xxx@163.com " />
+
+</LinearLayout>

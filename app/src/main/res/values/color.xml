@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    
+    <color name="activity_bg">#E6E6E6</color>
+    <color name="title_bar">#55ACEE</color>
+    <color name="view_bg">#ffEBEBEB</color>
+    <color name="view_pressed">#ffD9D9D9</color>
+    
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
+    <color name="red">#f00</color>
+    <color name="transparent">#00000000</color>
+    <color name="translucent">#44000000</color>
+    
+    <color name="stroke">#ffB1B5BA</color>
+    <color name="stroke2">#ffBABDC0</color>
+    <color name="solid">#ffD8D8D8</color>
+
+    <color name="list_divider">#449C9A9C</color>
+    <color name="list_item_nomal">#ffEBEBEB</color>
+    <color name="list_item_pressed">#ffD9D9D9</color>
+    <color name="item_text_main">#636563</color>
+    <color name="item_text_secondary">#9C9A9C</color>
+
+</resources>
