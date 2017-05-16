@@ -478,7 +478,7 @@ public class LinkifyUtil {
 ```
 ## 点赞动画
 
-在MainActivity的布局文件中，有一个TextView，是用来执行点赞后的+1的动画(（向上平衡，透明度变小，放大）)的。 该控件开始时隐藏，执行点赞动画时，注意不是列表项中的控件执行动画。
+在MainActivity的布局文件中，有一个TextView，是用来执行点赞后的+1的动画（向上平移，透明度变小，放大）。 该控件开始时隐藏，执行点赞动画时，注意不是列表项中的控件执行动画。
 
 ```java
 // WeiboHolder.java
