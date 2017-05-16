@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:background="@color/title_bar"
             android:gravity="center"
-            android:text="微博列表"
+            android:text="朋友圈列表"
             android:textColor="@android:color/white"
             android:textSize="20sp"/>
 
