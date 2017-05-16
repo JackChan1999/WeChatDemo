@@ -460,7 +460,11 @@ public class LinkifyUtil {
     }
 }
 ```
-点击自定义的链接后，点击超链接后会出错。 因为没有找到Activity可以处理发起的Intent, 需要定义两个Activity来接收意图中的参数。
+设置自定义的链接后，点击超链接后会出错。 因为没有找到Activity可以处理发起的Intent, 需要定义两个Activity来接收意图中的参数。
+
+![](art/ActivityNotFoundException.png)
+
+当点击超链接的时候，会调起/启动一个与Linkify.addLinks()方法中的scheme对应的Activity
 
 ```java
 public class TopicActivity extends AppCompatActivity {
