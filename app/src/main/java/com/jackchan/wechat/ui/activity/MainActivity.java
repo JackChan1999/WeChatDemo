@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -65,5 +67,22 @@ public class MainActivity extends AppCompatActivity {
         // 显示微博列表
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new WeiboAdapter(this, weibo.getWeibo()));
+    }
+
+    public void animateUp(int[] locations) {
+        // 减去状态栏高度24dp
+        int currentY = locations[1] - Global.dp2px(24);
+        tvLike.setVisibility(View.VISIBLE);
+        tvLike.setTranslationX(locations[0]);
+        tvLike.setTranslationY(currentY);
+        tvLike.setScaleY(1);
+        tvLike.setScaleX(1);
+        tvLike.setAlpha(1f);
+
+        // 往上移动30dp
+        int top = currentY - Global.dp2px(30);
+        tvLike.animate().alpha(0).translationY(top)
+                .setInterpolator(new DecelerateInterpolator())
+                .scaleX(1.2f).scaleY(1.2f).setDuration(1000);
     }
 }

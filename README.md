@@ -1,5 +1,3 @@
-# 微信朋友圈，QQ空间，微博等列表展示的功能实现
-
 ## 内容摘要
 
 该控件能够应用于内容资讯展示的功能模块中，如：腾讯和新浪微博的微博列表，微信朋友圈及其它社交类应用的好友动态展示列表等；实现了类似腾讯微博的微博列表展示功能，包含微博文本内容，表情，图片，话题和用户可点超链接等（请参见如下效果图）。该功能在实际项目开发中非常常见，除微博应用外，微信的朋友圈，陌陌、QQ空间的好友动态等也都有类似功能；
@@ -346,6 +344,14 @@ public class WeChat {
 
 显示文本中的表情，把文本中如`[呲牙][偷笑][偷笑]`的文字替换成表情图片，实现TextView的富文本显示（图文混排）。需要用正则去匹配文本中是否包含表情，匹配成功，表示文本中包含表情，用ImageSpan封装表情图片，再ImageSpan将设置给SpannableString，把文本中的表示表情的文字替换掉，最后将SpannableString设置给TextView即可。
 
+正则参考：
+
+```
+[高兴]    \\[([A-Za-z\u4E00-\u9FA5]+)\\]
+@用户     \\@([A-Za-z0-9\u4E00-\u9FA5]+)
+#话题#    \\#([A-Za-z0-9\u4E00-\u9FA5]+)\\#
+```
+
 ```java
 public class EmojiUtil {
 
@@ -385,6 +391,14 @@ public class EmojiUtil {
 }
 ```
 ## 自定义超链接
+
+关于TextView 网页，电话，邮箱的自动识别。
+
+```
+<TextView
+	...
+	android:text=" 电话 13609000000 邮箱 xxx@163.com 网址 http://www.google.com " />
+```
 
 添加自定义超链接，把内容中如`@冷笑话精选`、`#编程#`、`#讲故事#`的文本显示为超链接，高亮显示并支持点击。先使用Linkify.MatchFilter 匹配过滤器过滤内容中的超链接，再调用Linkify.addLinks()为TextView添加超链接
 
@@ -441,7 +455,9 @@ public class LinkifyUtil {
     }
 }
 ```
-给Activity设置action、category、data
+点击自定义的链接后，点击超链接后会出错。 因为没有找到Activity可以处理发起的Intent, 需要定义两个Activity来接收意图中的参数。
+
+在清单文件中配置以上Activity，给Activity设置action、category、data
 
 ```xml
 <!--点击用户链接时，要调起该Activity-->
@@ -459,4 +475,41 @@ public class LinkifyUtil {
         <data android:scheme="weibo" android:host="topic"/>
     </intent-filter>
 </activity>
+```
+## 点赞动画
+
+在MainActivity的布局文件中，有一个TextView，是用来执行点赞后的+1的动画(（向上平衡，透明度变小，放大）)的。 该控件开始时隐藏，执行点赞动画时，注意不是列表项中的控件执行动画。
+
+```java
+// WeiboHolder.java
+cbLike.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+			// 获取当前点击控件相对于窗口的所在位置
+            int[] locations = new int[2];
+            tvLike.getLocationInWindow(locations);
+            ((MainActivity) context).animateUp(locations);
+        }
+    }
+});
+```
+
+```java
+public void animateUp(int[] locations) {
+    // 减去状态栏高度24dp
+    int currentY = locations[1] - Global.dp2px(24);
+    tvLike.setVisibility(View.VISIBLE);
+    tvLike.setTranslationX(locations[0]);
+    tvLike.setTranslationY(currentY);
+    tvLike.setScaleY(1);
+    tvLike.setScaleX(1);
+    tvLike.setAlpha(1f);
+
+    // 往上移动30dp
+    int top = currentY - Global.dp2px(30);
+    tvLike.animate().alpha(0).translationY(top)
+            .setInterpolator(new DecelerateInterpolator())
+            .scaleX(1.2f).scaleY(1.2f).setDuration(1000);
+}
 ```

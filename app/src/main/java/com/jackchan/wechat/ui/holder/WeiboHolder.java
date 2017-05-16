@@ -7,12 +7,14 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jackchan.wechat.R;
 import com.jackchan.wechat.base.Global;
 import com.jackchan.wechat.bean.WeChat;
+import com.jackchan.wechat.ui.activity.MainActivity;
 import com.jackchan.wechat.ui.adapter.BaseAdapterRV;
 import com.jackchan.wechat.ui.adapter.ImageAdapter;
 import com.jackchan.wechat.util.EmojiUtil;
@@ -80,6 +82,18 @@ public class WeiboHolder extends BaseHolderRV<WeChat.WeiboBean> {
         rvWeiboImages.setLayoutManager(layoutManager);
         imageAdapter = new ImageAdapter(context, null);
         rvWeiboImages.setAdapter(imageAdapter);
+
+        cbLike.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // 获取当前点击控件相对于窗口的所在位置
+                    int[] locations = new int[2];
+                    tvLike.getLocationInWindow(locations);
+                    ((MainActivity) context).animateUp(locations);
+                }
+            }
+        });
     }
 
     // 刷新item布局中子控件的显示
