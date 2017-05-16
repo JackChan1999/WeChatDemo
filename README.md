@@ -400,7 +400,7 @@ public class EmojiUtil {
 	android:text=" 电话 13609000000 邮箱 xxx@163.com 网址 http://www.google.com " />
 ```
 
-添加自定义超链接，把内容中如`@冷笑话精选`、`#编程#`、`#讲故事#`的文本显示为超链接，高亮显示并支持点击。先使用Linkify.MatchFilter 匹配过滤器过滤内容中的超链接，再调用Linkify.addLinks()为TextView添加超链接
+添加自定义超链接，把内容中如`@冷笑话精选`、`#编程#`、`#讲故事#`的文本显示为超链接，高亮显示并支持点击。先使用Linkify.MatchFilter 匹配过滤器过滤内容中的超链接，TextView在显示的内容要识别链接时，调用Linkify.addLinks()
 
 ```java
 public class LinkifyUtil {
@@ -456,6 +456,52 @@ public class LinkifyUtil {
 }
 ```
 点击自定义的链接后，点击超链接后会出错。 因为没有找到Activity可以处理发起的Intent, 需要定义两个Activity来接收意图中的参数。
+
+```java
+public class TopicActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // weibo://user?uid=@冷笑话精选
+        Uri uri = getIntent().getData();
+        String topic = uri.getQueryParameter("uid");
+
+        TextView textView = new TextView(this);
+        textView.setGravity(Gravity.CENTER);
+        textView.setTextColor(Color.RED);
+        textView.setText(topic);
+        textView.setTextSize(20);
+
+        setContentView(textView);
+    }
+
+}
+```
+
+```java
+public class UserActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // weibo://user?uid=@冷笑话精选
+        Uri uri = getIntent().getData();
+        String username = uri.getQueryParameter("uid");
+
+        TextView textView = new TextView(this);
+        textView.setGravity(Gravity.CENTER);
+        textView.setTextColor(Color.GRAY);
+        textView.setText(username);
+        textView.setTextSize(20);
+
+        setContentView(textView);
+    }
+
+}
+```
 
 在清单文件中配置以上Activity，给Activity设置action、category、data
 
