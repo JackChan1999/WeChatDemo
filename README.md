@@ -392,12 +392,17 @@ public class EmojiUtil {
 ```
 ## 自定义超链接
 
-关于TextView 网页，电话，邮箱的自动识别。
+关于TextView 网页，电话，邮箱的自动识别。设置android:autoLink="email|web|phone|map"属性后，TextView 可自动识别电话、邮箱、网址、地图为超链接。
 
-```
+```xml
 <TextView
-	...
-	android:text=" 电话 13609000000 邮箱 xxx@163.com 网址 http://www.google.com " />
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="vertical"
+        android:autoLink="email|web|phone|map"
+        android:text=" 电话:13609000000,邮箱:815612738@163.com,网址:http://www.google.com " />
 ```
 
 添加自定义超链接，把内容中如`@冷笑话精选`、`#编程#`、`#讲故事#`的文本显示为超链接，高亮显示并支持点击。先使用Linkify.MatchFilter 匹配过滤器过滤内容中的超链接，TextView在显示的内容要识别链接时，调用Linkify.addLinks()
