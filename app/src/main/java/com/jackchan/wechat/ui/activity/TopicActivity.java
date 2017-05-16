@@ -42,6 +42,7 @@ public class TopicActivity extends AppCompatActivity {
         textView.setGravity(Gravity.CENTER);
         textView.setTextColor(Color.RED);
         textView.setText(topic);
+        textView.setTextSize(20);
 
         setContentView(textView);
     }

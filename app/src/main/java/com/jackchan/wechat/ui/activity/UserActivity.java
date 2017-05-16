@@ -42,6 +42,7 @@ public class UserActivity extends AppCompatActivity {
         textView.setGravity(Gravity.CENTER);
         textView.setTextColor(Color.GRAY);
         textView.setText(username);
+        textView.setTextSize(20);
 
         setContentView(textView);
     }
