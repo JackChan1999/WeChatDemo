@@ -390,6 +390,94 @@ public class EmojiUtil {
     }
 }
 ```
+### 让文字显示颜色
+
+```java
+/**
+	 * 让某几个文字显示颜色
+	 * @param string
+	 * @param color
+	 * @return
+	 */
+	private CharSequence showTextWithColor(String string,int color) {
+		SpannableString ss = new SpannableString(string);
+      	// BackgroundColorSpan 背景色
+		ForegroundColorSpan colorSpan = new ForegroundColorSpan(color);
+		int end = string.indexOf("等");
+		ss.setSpan(colorSpan, 0, end, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+		return ss;
+	}
+```
+
+### 让图片和文字一起显示
+
+```java
+/**
+	 * 让图片和文字一起显示
+	 * @param text
+	 * @param imageRes
+	 * @return
+	 */
+	private SpannableString showTextWithImage(String text,int imageRes){
+		SpannableString ss = new SpannableString(text);
+		Drawable drawable = getResources().getDrawable(imageRes);
+		
+		//设置边界
+//		drawable.setBounds(0,0,drawable.getIntrinsicWidth(),drawable.getIntrinsicHeight());
+		drawable.setBounds(0,0,20,20);
+		ImageSpan span = new ImageSpan(drawable);
+		
+		int start = text.indexOf("[");
+		int end = text.indexOf("]")+1;
+		ss.setSpan(span, start,end,SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+		
+		return ss;
+	}
+```
+
+### 设置超链接
+
+```java
+// 让某段文字可以被点击并跳转超链接
+String text = "详情请点击<a href='http://www.baidu.com'>百度</a>";
+Spanned spanned = Html.fromHtml(text);
+text3.setText(spanned);
+text3.setMovementMethod(LinkMovementMethod.getInstance());//设置可以点击超链接
+```
+
+### 让某段文字可以被点击并自定义点击的逻辑操作
+
+```java
+// 让某段文字可以被点击并自定义点击的逻辑操作
+String string = "王二,小明,大兵等觉得很赞";
+SpannableString ss= new SpannableString(string);
+MyUrlSpan urlSpan= new MyUrlSpan(string.substring(0, string.indexOf(",")));
+ss.setSpan(urlSpan, 0, 2, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+text4.setText(ss);
+text4.setMovementMethod(LinkMovementMethod.getInstance());
+```
+
+```java
+class MyUrlSpan extends URLSpan{
+		public MyUrlSpan(String url) {
+			super(url);
+		}
+  
+		@Override
+		public void onClick(View widget) {
+          	// 自定义点击的操作逻辑，默认实现是获取url，打开浏览器
+			Toast.makeText(MainActivity.this, getURL(), 0).show();
+			widget.clearFocus();
+		}
+  
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            super.updateDrawState(ds);
+            ds.setColor(Color.RED); // 设置文字颜色
+            ds.setUnderlineText(false); // 设置是否显示下划线
+        }
+}
+```
 ## 自定义超链接
 
 关于TextView 网页，电话，邮箱的自动识别。设置android:autoLink="email|web|phone|map"属性后，TextView 可自动识别电话、邮箱、网址、地图为超链接。
